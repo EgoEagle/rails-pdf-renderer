@@ -62,7 +62,8 @@ class HomeController < ApplicationController
 
   def submit
     #file_field = @params["form"]["file"] rescue nil
-    hash = {name: params["info"]["name"], num: params["info"]["type"], completion_date: params["info"]["date_completed"] } 
+    hash = { name: params["info"]["name"], template: { category: params["info"]["type"] }, completion_date: params["info"]["date_completed"] }
+    render json: hash
     renderer = Renderer.new(TEMPLATE, hash)
     renderer.begin
   end

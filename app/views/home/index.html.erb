@@ -8,11 +8,15 @@
           <%= form.text_field :number, placeholder: "Report ID", class: "form-control" %>
      </div>
           <div class = "form-group">
-          <%= form.label :Date_Completed , "Date Completed" %>
+          <%= form.label :Date_Completed, "Date Completed" %>
           <%= form.text_field :date_completed, class: "form-control" %>
      </div>
      <div class = "form-group">
           <%= form.select :certificate_name, ["Carpentry Level One", "Industrial Pipefitter", "Scaffold Builder"], class: "form-control" %>
+          
+     </div>
+          <div class = "form-group">
+         
           <%= form.select :type, ["Performance Report", "Assessment Report", "Certificate"], class: "form-control" %> <br>
      </div>
 

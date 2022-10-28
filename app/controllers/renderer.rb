@@ -13,8 +13,8 @@ class Renderer
   def initialize(options = {}, template, attributes)
     @info
     @table = false
-    @BACKGROUND
-    @COLOR
+    @background
+    @color
     @template = template
     @attributes = attributes
     @options = options
@@ -60,8 +60,8 @@ class Renderer
         raise "Unsupported content type #{fragment.content.class}"
       end
 
-      color = fragment.color? ? fragment.color : COLOR
-      alignment = BACKGROUND.nil? ? "center" : "left"
+      color = fragment.color? ? fragment.color : @color
+      alignment = @background.nil? ? "center" : "left"
 
       content.each do |c|
         pdf.text c, :leading => 0, width: fragment.width, align: alignment.to_sym, :color => color, style: fragment.style
@@ -105,9 +105,9 @@ class Renderer
   end
 
   def set_bg_color(pdf)
-    if !BACKGROUND.nil?
+    if !@background.nil?
       pdf.canvas do
-        pdf.fill_color BACKGROUND
+        pdf.fill_color @background
         pdf.fill_rectangle [pdf.bounds.left, pdf.bounds.top], pdf.bounds.right, pdf.bounds.top
         pdf.fill_color "000000"
       end
@@ -218,20 +218,20 @@ class Renderer
   end
 
   def begin
-    case @template[:template][:type]
+    case @attributes[:template][:category]
 
-    when "certificate"
-      @COLOR = @template[:template][:color]
-      @BACKGROUND = @template[:template][:background_color]
+    when "Certificate"
+      @color = @template[:template][:color]
+      @background = @template[:template][:background_color]
       render_certificate
-    when "ar_batch_report", "pv_batch_report"
-      @COLOR = @template[:template][:color]
-      @BACKGROUND = @template[:template][:background_color]
+    when "Ar_batch_report", "Pv_batch_report"
+      @color = @template[:template][:color]
+      @background = @template[:template][:background_color]
       @table = true
       render_batch_report
     else
       puts "No Matching Template"
-      @BACKGROUND = "FFFFFF"
+      @background = "FFFFFF"
     end
 
     render
