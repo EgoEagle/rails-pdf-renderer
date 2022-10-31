@@ -78,7 +78,7 @@ class Renderer
   end
 
   def render
-    Prawn::Document.generate(filename, page_layout: :landscape, type: "application/pdf", disposition: :inline) do |pdf|
+    Prawn::Document.generate(filename, page_layout: :landscape) do |pdf|
       # pdf.stroke_axis
       set_bg_color(pdf)
       if @table
