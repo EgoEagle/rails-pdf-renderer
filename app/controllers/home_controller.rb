@@ -63,8 +63,12 @@ class HomeController < ApplicationController
   def submit
     #file_field = @params["form"]["file"] rescue nil
     hash = { name: params["info"]["name"], template: { category: params["info"]["type"] }, completion_date: params["info"]["date_completed"] }
-    render json: hash
+    #render json: hash
     renderer = Renderer.new(TEMPLATE, hash)
     renderer.begin
+    # pdf = Prawn::Document.new
+    # pdf.text "Hello World"
+    # send_data pdf.render, :filename => "x.pdf", :type => "application/pdf"
+    send_data renderer.pdf.render, :filename => "x.pdf", :type => "application/pdf", :disposition => "inline"
   end
 end

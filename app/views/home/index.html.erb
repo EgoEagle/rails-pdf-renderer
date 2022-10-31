@@ -1,15 +1,15 @@
-<%= form_for :info, class: "sform", url: "home/submit", data: { turbo: false } do |form| %>
+<%= form_for :info, class: "sform form-group", url: "home/submit", data: { turbo: false } do |form| %>
      <div class = "form-group test">
           <%= form.label :Name, style: "border: 1px solid pink;" %>
-          <%= form.text_field :name, class: "form-control" %>
+          <%= form.text_field :name, class: "form-control-sm" %>
      </div>
      <div class = "form-group">
           <%= form.label :Report_ID, "Report ID" %>
-          <%= form.text_field :number, placeholder: "Report ID", class: "form-control" %>
+          <%= form.text_field :number, placeholder: "Report ID", class: "form-control-sm" %>
      </div>
           <div class = "form-group">
           <%= form.label :Date_Completed, "Date Completed" %>
-          <%= form.text_field :date_completed, class: "form-control" %>
+          <%= form.text_field :date_completed, class: "form-control-sm" %>
      </div>
      <div class = "form-group">
           <%= form.select :certificate_name, ["Carpentry Level One", "Industrial Pipefitter", "Scaffold Builder"], class: "form-control" %>
@@ -21,12 +21,30 @@
      </div>
 
      <div class = "form-group">
-     <%= form.label :Direct %>
-     <%= form.label :Direct, "Yes", value: "true" %>
-     <%= form.radio_button :Direct, true %>
-     <%= form.label :Direct, "No", value: "false" %>
-     <%= form.radio_button :Direct, false, checked: true %> <br>
+          <%= form.label :Direct %>
+          <%= form.label :Direct, "Yes", value: "true" %>
+          <%= form.radio_button :Direct, true %>
+          <%= form.label :Direct, "No", value: "false" %>
+          <%= form.radio_button :Direct, false, checked: true %> <br>
      </div>
-     <%= form.submit "Submit", class: "btn btn-primary" %>
-     
+
+     <select onchange="yesnoCheck()">
+          <option id="yesCheck"  value="Performance Report">Performance Report</option>
+          <option id="yesCheck" value="Assessment Report">Assessment Report</option>
+          <option id="noCheck" value="Certificate">Certificate</option>
+     </select>
+
+     <div id="ifYes" style="display: none;">
+          <label for="car">Muu, mikä?</label> <input type="text" id="car" name="car" /><br />
+     </div>         
+     <script type="text/javascript">
+          function yesnoCheck() {
+               if (document.getElementById("yesCheck").selected) {
+                    document.getElementById("ifYes").style.display = "block";
+               } else {
+                    document.getElementById("ifYes").style.display = "none";
+               }
+          }
+     </script>
+     <%= form.submit "Submit", :class => "btn btn-primary" %>
 <% end %>

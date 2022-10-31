@@ -8,9 +8,10 @@ require_relative "page_fragment"
 time = Time.new
 
 class Renderer
-  attr_accessor :page_fragments, :template, :attributes
+  attr_accessor :page_fragments, :template, :attributes, :pdf
 
   def initialize(options = {}, template, attributes)
+    @pdf
     @info
     @table = false
     @background
@@ -77,7 +78,7 @@ class Renderer
   end
 
   def render
-    Prawn::Document.generate(filename, page_layout: :landscape) do |pdf|
+    Prawn::Document.generate(filename, page_layout: :landscape, type: "application/pdf", disposition: :inline) do |pdf|
       # pdf.stroke_axis
       set_bg_color(pdf)
       if @table
@@ -86,6 +87,7 @@ class Renderer
       self.page_fragments.each do |fragment|
         render_fragment(pdf, fragment)
       end
+      @pdf = pdf
     end
   end
 
