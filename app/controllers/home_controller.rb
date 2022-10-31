@@ -66,9 +66,6 @@ class HomeController < ApplicationController
     #render json: hash
     renderer = Renderer.new(TEMPLATE, hash)
     renderer.begin
-    # pdf = Prawn::Document.new
-    # pdf.text "Hello World"
-    # send_data pdf.render, :filename => "x.pdf", :type => "application/pdf"
     send_data renderer.pdf.render, :filename => "x.pdf", :type => "application/pdf", :disposition => "inline"
   end
 end
