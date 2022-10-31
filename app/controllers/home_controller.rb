@@ -66,6 +66,6 @@ class HomeController < ApplicationController
     #render json: hash
     renderer = Renderer.new(TEMPLATE, hash)
     renderer.begin
-    send_data renderer.pdf.render, :filename => "x.pdf", :type => "application/pdf", :disposition => "inline"
+    send_data renderer.pdf.render, :filename => params["info"]["name"] + ".pdf", :type => "application/pdf"
   end
 end
